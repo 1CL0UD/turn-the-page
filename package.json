@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "packageManager": "pnpm@9.15.2",
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
     "class-variance-authority": "^0.7.1",
