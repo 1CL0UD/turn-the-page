@@ -1,5 +1,5 @@
 import AuthForm from '@/components/auth-form';
-import { signInWithCredentials } from '@/lib/actions/auth';
+import { signUpWithCredentials } from '@/lib/actions/auth';
 import { signUpSchema } from '@/lib/validations';
 
 export default function Page() {
@@ -7,7 +7,7 @@ export default function Page() {
     <AuthForm
       type={'SIGN_UP'}
       schema={signUpSchema}
-      onSubmit={signInWithCredentials}
+      onSubmit={signUpWithCredentials}
       defaultValues={{
         fullName: '',
         email: '',
