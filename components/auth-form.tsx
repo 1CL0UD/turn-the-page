@@ -24,6 +24,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from './ui/input';
 import { FIELD_NAMES, FIELD_TYPES } from '@/constants';
 import FileUpload from './file-upload';
+import Link from 'next/link';
+import { Button } from './ui/button';
 
 interface Props<T extends FieldValues> {
   type: 'SIGN_IN' | 'SIGN_UP';
@@ -39,6 +41,7 @@ const AuthForm = <T extends FieldValues>({
   onSubmit,
 }: Props<T>) => {
   const router = useRouter();
+
   const isSignIn = type === 'SIGN_IN';
 
   const form: UseFormReturn<T> = useForm({
@@ -77,6 +80,11 @@ const AuthForm = <T extends FieldValues>({
           ? 'Welcome back to Turn The Page'
           : 'Create an account with Turn The Page'}
       </h1>
+      <p className="text-light-100">
+        {isSignIn
+          ? 'Accest the vast collection of resources and stay updated'
+          : 'Please complete all field and upload a valid university ID to gain access to the library'}
+      </p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
@@ -103,6 +111,7 @@ const AuthForm = <T extends FieldValues>({
                         onFileChange={field.onChange}
                       />
                     ) : (
+                      // <p>Upload Image</p>
                       <Input
                         required
                         type={
@@ -118,8 +127,20 @@ const AuthForm = <T extends FieldValues>({
               )}
             />
           ))}
+          <Button type="submit" className="form-btn">
+            {isSignIn ? 'Sign In' : 'Sign Up'}
+          </Button>
         </form>
       </Form>
+      <p className="text-center text-base font-medium">
+        {isSignIn ? 'New to Turn The Page? ' : 'Already have an account? '}
+        <Link
+          href={isSignIn ? '/sign-up' : '/sign-in'}
+          className="font-bold text-primary"
+        >
+          {isSignIn ? 'Register now' : 'Sign In'}
+        </Link>
+      </p>
     </div>
   );
 };
