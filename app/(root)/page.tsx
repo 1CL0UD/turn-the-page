@@ -3,7 +3,7 @@ import BookOverview from '@/components/book-overview';
 import { sampleBooks } from '@/constants';
 import React from 'react';
 
-const Home = () => {
+const Home = async () => {
   return (
     <>
       <BookOverview {...sampleBooks[0]} />
