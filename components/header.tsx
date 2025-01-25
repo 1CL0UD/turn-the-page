@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import UserButton from './auth/user-button';
 
 const Header = () => {
   const pathname = usePathname();
@@ -48,6 +49,7 @@ const Header = () => {
           </Link>
         </li>
       </ul>
+      <UserButton />
     </header>
   );
 };

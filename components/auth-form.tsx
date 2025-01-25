@@ -26,12 +26,16 @@ import { FIELD_NAMES, FIELD_TYPES } from '@/constants';
 import FileUpload from './file-upload';
 import Link from 'next/link';
 import { Button } from './ui/button';
+import GoogleSignIn from './auth/google-signin';
+import AppleSignIn from './auth/apple-signin';
 
 interface Props<T extends FieldValues> {
   type: 'SIGN_IN' | 'SIGN_UP';
   schema: ZodType<T>;
   defaultValues: T;
   onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>;
+  socialLogin: boolean;
+  emailPassLogin: boolean;
 }
 
 const AuthForm = <T extends FieldValues>({
@@ -39,6 +43,8 @@ const AuthForm = <T extends FieldValues>({
   schema,
   defaultValues,
   onSubmit,
+  socialLogin,
+  emailPassLogin,
 }: Props<T>) => {
   const router = useRouter();
 
@@ -85,62 +91,77 @@ const AuthForm = <T extends FieldValues>({
           ? 'Accest the vast collection of resources and stay updated'
           : 'Please complete all field and upload a valid university ID to gain access to the library'}
       </p>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="w-full space-y-6"
-        >
-          {Object.keys(defaultValues).map((field) => (
-            <FormField
-              key={field}
-              control={form.control}
-              name={field as Path<T>}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="capitalize">
-                    {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}
-                  </FormLabel>
-                  <FormControl>
-                    {field.name === 'universityCard' ? (
-                      <FileUpload
-                        type="image"
-                        accept="image/*"
-                        placeholder="Upload your ID"
-                        folder="ids"
-                        variant="dark"
-                        onFileChange={field.onChange}
-                      />
-                    ) : (
-                      // <p>Upload Image</p>
-                      <Input
-                        required
-                        type={
-                          FIELD_TYPES[field.name as keyof typeof FIELD_TYPES]
-                        }
-                        {...field}
-                        className="form-input"
-                      />
-                    )}
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          <Button type="submit" className="form-btn">
-            {isSignIn ? 'Sign In' : 'Sign Up'}
-          </Button>
-        </form>
-      </Form>
-      <p className="text-center text-base font-medium">
-        {isSignIn ? 'New to Turn The Page? ' : 'Already have an account? '}
-        <Link
-          href={isSignIn ? '/sign-up' : '/sign-in'}
-          className="font-bold text-primary"
-        >
-          {isSignIn ? 'Register now' : 'Sign In'}
-        </Link>
-      </p>
+      {emailPassLogin && (
+        <>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="w-full space-y-6"
+            >
+              {Object.keys(defaultValues).map((field) => (
+                <FormField
+                  key={field}
+                  control={form.control}
+                  name={field as Path<T>}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="capitalize">
+                        {FIELD_NAMES[field.name as keyof typeof FIELD_NAMES]}
+                      </FormLabel>
+                      <FormControl>
+                        {field.name === 'universityCard' ? (
+                          <FileUpload
+                            type="image"
+                            accept="image/*"
+                            placeholder="Upload your ID"
+                            folder="ids"
+                            variant="dark"
+                            onFileChange={field.onChange}
+                          />
+                        ) : (
+                          // <p>Upload Image</p>
+                          <Input
+                            required
+                            type={
+                              FIELD_TYPES[
+                                field.name as keyof typeof FIELD_TYPES
+                              ]
+                            }
+                            {...field}
+                            className="form-input"
+                          />
+                        )}
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ))}
+              <Button type="submit" className="form-btn">
+                {isSignIn ? 'Sign In' : 'Sign Up'}
+              </Button>
+            </form>
+          </Form>
+          <p className="text-center text-base font-medium">
+            {isSignIn ? 'New to Turn The Page? ' : 'Already have an account? '}
+            <Link
+              href={isSignIn ? '/sign-up' : '/sign-in'}
+              className="font-bold text-primary"
+            >
+              {isSignIn ? 'Register now' : 'Sign In'}
+            </Link>
+          </p>
+        </>
+      )}
+      {socialLogin && (
+        <div className="flex flex-col items-center space-y-4">
+          <h2 className="text-lg font-semibold text-white">
+            Login Using These Options
+          </h2>
+          <GoogleSignIn />
+          <AppleSignIn />
+        </div>
+      )}
     </div>
   );
 };
