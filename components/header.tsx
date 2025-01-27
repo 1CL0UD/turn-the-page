@@ -5,8 +5,10 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import UserButton from './auth/user-button';
+import { useSession } from 'next-auth/react';
 
 const Header = () => {
+  const { data: session } = useSession();
   const pathname = usePathname();
 
   return (
@@ -19,7 +21,7 @@ const Header = () => {
           <Link
             href="/library"
             className={cn(
-              'text-base cursor-pointer capitalize',
+              'text-base cursor-pointer capitalize hover:text-light-200 transition-colors',
               pathname === '/library' ? 'text-light-200' : 'text-light-100'
             )}
           >
@@ -30,7 +32,7 @@ const Header = () => {
           <Link
             href="/services"
             className={cn(
-              'text-base cursor-pointer capitalize',
+              'text-base cursor-pointer capitalize hover:text-light-200 transition-colors',
               pathname === '/services' ? 'text-light-200' : 'text-light-100'
             )}
           >
@@ -41,15 +43,30 @@ const Header = () => {
           <Link
             href="/contact"
             className={cn(
-              'text-base cursor-pointer capitalize',
+              'text-base cursor-pointer capitalize hover:text-light-200 transition-colors',
               pathname === '/contact' ? 'text-light-200' : 'text-light-100'
             )}
           >
             Contact
           </Link>
         </li>
+        <li>
+          {session ? (
+            <UserButton session={session} />
+          ) : (
+            <>
+              <Link
+                href="/sign-in"
+                className={cn(
+                  'text-base cursor-pointer capitalize hover:text-light-200 text-light-100 transition-colors'
+                )}
+              >
+                Sign In
+              </Link>
+            </>
+          )}
+        </li>
       </ul>
-      <UserButton />
     </header>
   );
 };
