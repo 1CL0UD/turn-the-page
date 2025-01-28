@@ -4,6 +4,9 @@ import './globals.css';
 import localFont from 'next/font/local';
 import { Toaster } from '@/components/ui/toaster';
 import { SessionProvider } from 'next-auth/react';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { ThemeProvider } from '@/components/theme-provider';
+import { DarkModeToggle } from '@/components/dark-mode-toggle';
 
 const ibmPlexSans = localFont({
   src: [
@@ -32,12 +35,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
       >
         <SessionProvider>
-          {children} <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              {children} <Toaster />
+              <DarkModeToggle />
+            </SidebarProvider>
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>
