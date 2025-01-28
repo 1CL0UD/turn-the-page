@@ -1,13 +1,14 @@
 import {
   varchar,
-  uuid,
   integer,
   text,
   pgTable,
   date,
   pgEnum,
   timestamp,
+  primaryKey,
 } from 'drizzle-orm/pg-core';
+import type { AdapterAccountType } from 'next-auth/adapters';
 
 export const STATUS_ENUM = pgEnum('status', [
   'PENDING',
@@ -20,23 +21,54 @@ export const BORROW_STATUS_ENUM = pgEnum('borrow_status', [
   'RETURNED',
 ]);
 
-export const users = pgTable('users', {
-  id: uuid('id').notNull().primaryKey().defaultRandom().unique(),
-  fullName: varchar('full_name', { length: 255 }).notNull(),
-  email: text('email').notNull().unique(),
-  universityId: integer('university_id').notNull().unique(),
-  password: text('password').notNull(),
-  universityCard: text('university_card').notNull(),
-  status: STATUS_ENUM('status').default('PENDING'),
-  role: ROLE_ENUM('role').default('USER'),
-  lastActivityDate: date('last_activity_date').defaultNow(),
-  createdAt: timestamp('created_at', {
-    withTimezone: true,
-  }).defaultNow(),
+export const users = pgTable('user', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text('name'),
+  email: text('email').unique(),
+  emailVerified: timestamp('emailVerified', { mode: 'date' }),
+  image: text('image'),
+});
+
+export const accounts = pgTable(
+  'account',
+  {
+    userId: text('userId')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    type: text('type').$type<AdapterAccountType>().notNull(),
+    provider: text('provider').notNull(),
+    providerAccountId: text('providerAccountId').notNull(),
+    refresh_token: text('refresh_token'),
+    access_token: text('access_token'),
+    expires_at: integer('expires_at'),
+    token_type: text('token_type'),
+    scope: text('scope'),
+    id_token: text('id_token'),
+    session_state: text('session_state'),
+  },
+  (account) => [
+    {
+      compoundKey: primaryKey({
+        columns: [account.provider, account.providerAccountId],
+      }),
+    },
+  ]
+);
+
+export const sessions = pgTable('session', {
+  sessionToken: text('sessionToken').primaryKey(),
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  expires: timestamp('expires', { mode: 'date' }).notNull(),
 });
 
 export const books = pgTable('books', {
-  id: uuid('id').notNull().primaryKey().defaultRandom().unique(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   title: varchar('title', { length: 255 }).notNull(),
   author: varchar('author', { length: 255 }).notNull(),
   genre: text('genre').notNull(),
@@ -52,11 +84,13 @@ export const books = pgTable('books', {
 });
 
 export const borrowRecords = pgTable('borrow_records', {
-  id: uuid('id').notNull().primaryKey().defaultRandom().unique(),
-  userId: uuid('user_id')
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text('user_id')
     .references(() => users.id)
     .notNull(),
-  bookId: uuid('book_id')
+  bookId: text('book_id')
     .references(() => books.id)
     .notNull(),
   borrowDate: timestamp('borrow_date', { withTimezone: true })
