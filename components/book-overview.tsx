@@ -21,11 +21,16 @@ const BookOverview = ({
         <h1>{title}</h1>
         <div className="book-info">
           <p>
-            By <span className="font-semibold text-light-200">{author}</span>
+            By{' '}
+            <span className="font-semibold text-amber-900 dark:text-light-200">
+              {author}
+            </span>
           </p>
           <p>
             Category{' '}
-            <span className="font-semibold text-light-200">{genre}</span>
+            <span className="font-semibold text-amber-900 dark:text-light-200">
+              {genre}
+            </span>
           </p>
 
           <div className="flex flex-row gap-1">
