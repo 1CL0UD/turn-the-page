@@ -104,6 +104,16 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        linen: {
+          '100': '#FDFDFB',
+          '200': '#FDFCFA',
+          '300': '#FDFBF9',
+          '400': '#FDFAF8',
+          '500': '#FDF9F6',
+          '600': '#FCF8F4',
+          '700': '#FBF6F1',
+          '800': '#FAF4ED',
+        },
       },
       screens: {
         xs: '480px',
@@ -115,6 +125,8 @@ export default {
       },
       backgroundImage: {
         pattern: `url('/images/pattern.webp')`,
+        'pattern-polka': `url('/images/pattern-polka.webp')`,
+        'grid-box-leather': `url('/images/grid-box-leather.svg')`,
       },
     },
   },

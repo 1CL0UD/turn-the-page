@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import UserButton from './auth/user-button';
 import { useSession } from 'next-auth/react';
+import { buttonVariants } from './ui/button';
 
 const Header = () => {
   const { data: session } = useSession();
@@ -21,8 +22,10 @@ const Header = () => {
           <Link
             href="/library"
             className={cn(
-              'text-base cursor-pointer capitalize hover:text-light-200 transition-colors',
-              pathname === '/library' ? 'text-light-200' : 'text-light-100'
+              'text-base cursor-pointer capitalize hover:text-amber-900 dark:hover:text-light-200 transition-colors',
+              pathname === '/library'
+                ? 'text-dark-300 dark:text-light-200'
+                : 'text-dark-100 dark:text-light-100'
             )}
           >
             Library
@@ -32,8 +35,10 @@ const Header = () => {
           <Link
             href="/services"
             className={cn(
-              'text-base cursor-pointer capitalize hover:text-light-200 transition-colors',
-              pathname === '/services' ? 'text-light-200' : 'text-light-100'
+              'text-base cursor-pointer capitalize hover:text-amber-900 dark:hover:text-light-200 transition-colors',
+              pathname === '/services'
+                ? 'text-dark-300 dark:text-light-200'
+                : 'text-dark-100 dark:text-light-100'
             )}
           >
             Services
@@ -43,8 +48,10 @@ const Header = () => {
           <Link
             href="/contact"
             className={cn(
-              'text-base cursor-pointer capitalize hover:text-light-200 transition-colors',
-              pathname === '/contact' ? 'text-light-200' : 'text-light-100'
+              'text-base cursor-pointer capitalize hover:text-amber-900 dark:hover:text-light-200 transition-colors',
+              pathname === '/contact'
+                ? 'text-dark-300 dark:text-light-200'
+                : 'text-dark-100 dark:text-light-100'
             )}
           >
             Contact
@@ -58,7 +65,8 @@ const Header = () => {
               <Link
                 href="/sign-in"
                 className={cn(
-                  'text-base cursor-pointer capitalize hover:text-light-200 text-light-100 transition-colors'
+                  buttonVariants({ variant: 'outline' }),
+                  'text-base cursor-pointer capitalize hover:text-amber-900 dark:hover:text-light-200 text-dark-300 dark:text-light-100 transition-colors'
                 )}
               >
                 Sign In

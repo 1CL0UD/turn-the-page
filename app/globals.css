@@ -51,7 +51,7 @@
   }
 
   .form-input {
-    @apply w-full min-h-14 border-none text-base font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-dark-300 !important;
+    @apply w-full min-h-14 border-none text-base font-bold placeholder:font-normal text-black dark:text-white placeholder:text-dark-300 dark:placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-dark-300 !important;
   }
 
   /* Book Card */
@@ -60,7 +60,7 @@
   }
 
   .book-genre {
-    @apply mt-1 line-clamp-1 text-sm italic text-light-100 xs:text-base;
+    @apply mt-1 line-clamp-1 text-sm italic text-dark-300 dark:text-light-100 xs:text-base;
   }
 
   .book-loaned {
@@ -73,7 +73,7 @@
 
   /* Borrowed Book */
   .borrowed-book {
-    @apply gradient-vertical p-5 rounded-2xl xs:w-min w-full relative;
+    @apply gradient-linen dark:gradient-vertical p-5 rounded-2xl xs:w-min w-full relative;
   }
 
   .borrowed-book_cover {
@@ -120,7 +120,7 @@
   }
 
   .book-info {
-    @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-light-100;
+    @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-dark-300 dark:text-light-100;
   }
 
   .book-copies {
@@ -128,7 +128,7 @@
   }
 
   .book-copies p {
-    @apply text-xl text-light-100;
+    @apply text-xl text-dark-300 dark:text-light-100;
   }
 
   .book-copies p span {
@@ -136,7 +136,7 @@
   }
 
   .book-description {
-    @apply mt-2 text-justify text-xl text-light-100;
+    @apply mt-2 text-justify text-xl text-dark-300 dark:text-light-100;
   }
 
   .book-overview_btn {
@@ -153,7 +153,7 @@
   }
 
   .progress {
-    @apply rounded-full bg-green-800 p-0.5 text-center font-bebas-neue text-[8px] font-bold leading-none text-light-100;
+    @apply rounded-full bg-green-800 p-0.5 text-center font-bebas-neue text-[8px] font-bold leading-none text-dark-300 dark:text-light-100;
   }
 
   /* Search */
@@ -209,7 +209,7 @@
   }
 
   #not-found p {
-    @apply text-light-100 w-[360px] mt-1;
+    @apply text-dark-300 dark:text-light-100 w-[360px] mt-1;
   }
 
   .not-found-btn {
@@ -235,21 +235,25 @@
 
   /* Sort */
   .select-trigger {
-    @apply w-40 h-10 px-4 bg-dark-300 text-light-100 border-dark-100 !important;
+    @apply w-40 h-10 px-4 bg-dark-300 text-dark-300 dark:text-light-100 border-dark-100 !important;
   }
 
   .select-content {
-    @apply bg-dark-300 text-light-100 border-dark-100 !important;
+    @apply bg-dark-300 text-dark-300 dark:text-light-100 border-dark-100 !important;
   }
 
   .select-item {
-    @apply focus:bg-dark-600 focus:text-light-100 !important;
+    @apply focus:bg-dark-600 focus:text-dark-300 dark:focus:text-light-100 !important;
   }
 }
 
 @layer utilities {
   .gradient-vertical {
     background: linear-gradient(180deg, #12141d 0%, #12151f 100%);
+  }
+
+  .gradient-linen {
+    background: linear-gradient(180deg, #a68a64 0%, #7d6548 100%);
   }
 
   .gradient-gray {
@@ -262,15 +266,15 @@
 
   /* Auth */
   .auth-container {
-    @apply relative flex flex-col-reverse text-light-100 sm:flex-row;
+    @apply relative flex flex-col-reverse text-dark-300 dark:text-light-100 sm:flex-row w-full;
   }
 
   .auth-form {
-    @apply my-auto flex h-full min-h-screen flex-1 items-center bg-pattern bg-cover bg-top bg-dark-100 px-5 py-10;
+    @apply my-auto flex h-full min-h-screen flex-1 items-center bg-linen-800 dark:bg-pattern bg-cover bg-top dark:bg-dark-100 px-5 py-10;
   }
 
   .auth-box {
-    @apply gradient-vertical mx-auto flex max-w-xl flex-col gap-6 rounded-lg p-10;
+    @apply bg-grid-box-leather dark:gradient-vertical mx-auto flex max-w-xl flex-col gap-6 rounded-lg p-10;
   }
 
   .auth-illustration {
@@ -279,7 +283,7 @@
 
   /* Root */
   .root-container {
-    @apply flex min-h-screen flex-1 flex-col dark:bg-pattern bg-cover bg-top bg-light-200 dark:bg-dark-100 px-5 xs:px-10 md:px-16;
+    @apply flex min-h-screen flex-1 flex-col bg-linen-800 dark:bg-pattern bg-cover bg-top  dark:bg-dark-100 px-5 xs:px-10 md:px-16;
   }
 
   /* Book Details */
@@ -297,7 +301,7 @@
   }
 
   .library-subtitle {
-    @apply text-lg font-semibold uppercase text-light-100;
+    @apply text-lg font-semibold uppercase text-dark-300 dark:text-light-100;
   }
 
   .library-title {
@@ -368,4 +372,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.ProseMirror-focused:focus-visible {
+  outline: none;
 }

@@ -22,7 +22,7 @@ export default async function Layout({
           <div className="">{children}</div>
         </div>
       </section>
-      {/* <section className="auth-illustration">
+      <section className="auth-illustration">
         <Image
           src="/images/auth-illustration.png"
           alt="Illustration"
@@ -30,7 +30,7 @@ export default async function Layout({
           height={1000}
           className="size-full object-cover"
         />
-      </section> */}
+      </section>
     </main>
   );
 }
