@@ -3,14 +3,28 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { EditorHeader } from './editor-header';
-import Heading from '@tiptap/extension-heading';
 import { Separator } from '@/components/ui/separator';
 
-const Tiptap = () => {
+const Tiptap = ({
+  description,
+  onChange,
+}: {
+  description: string;
+  onChange: (richText: string) => void;
+}) => {
   const editor = useEditor({
-    extensions: [StarterKit, Heading],
-    content: '<p>Hello World! 🌎️</p>',
+    extensions: [StarterKit],
     immediatelyRender: false,
+    content: description,
+    editorProps: {
+      attributes: {
+        class:
+          'rounded-md border min-h-[150px] border-input focus:ring-offset-2 disabled:cursor-not-allows disabled:opacity-50 p-2',
+      },
+    },
+    onUpdate({ editor }) {
+      onChange(editor.getHTML());
+    },
   });
 
   return (
