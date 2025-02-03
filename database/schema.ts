@@ -29,6 +29,7 @@ export const users = pgTable('user', {
   email: text('email').unique(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),
+  role: ROLE_ENUM('role').default('USER').notNull(),
 });
 
 export const accounts = pgTable(

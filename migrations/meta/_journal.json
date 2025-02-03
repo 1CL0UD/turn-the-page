@@ -8,6 +8,27 @@
       "when": 1737976368531,
       "tag": "0000_exotic_luminals",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1738599531420,
+      "tag": "0001_awesome_black_bolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738599716470,
+      "tag": "0002_flashy_red_shift",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1738599831501,
+      "tag": "0003_solid_steel_serpent",
+      "breakpoints": true
     }
   ]
 }
